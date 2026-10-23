@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import TrustStrip from "../components/TrustStrip.astro";
+import Services from "../components/Services.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import About from "../components/About.astro";
+import BookingBanner from "../components/BookingBanner.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppFloat from "../components/WhatsAppFloat.astro";
+---
+
+<BaseLayout
+  title="Sofa & Upholstery Cleaning in Dubai | Upholstery Cleaning"
+  description="Professional sofa, upholstery, carpet, mattress and curtain cleaning at your home in Dubai. Book on WhatsApp for a quick estimate."
+>
+  <Header />
+  <main>
+    <Hero />
+    <TrustStrip />
+    <Services />
+    <HowItWorks />
+    <About />
+    <BookingBanner />
+    <Contact />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>
