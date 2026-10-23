@@ -1,0 +1,117 @@
+---
+const steps = [
+  {
+    title: "Send us a WhatsApp",
+    text: "Message us with a few details so we can understand the job.",
+    whatToSend: ["Your location", "Furniture type", "A photo"],
+  },
+  {
+    title: "Get your estimate",
+    text: "We review the photo and fabric, then reply with an estimate and an available time.",
+  },
+  {
+    title: "We clean at your home",
+    text: "Our team arrives with professional vacuums and cleaning machines and cleans everything on-site.",
+  },
+];
+---
+
+<section class="section how" id="how">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">How it works</span>
+      <h2>Book in three simple steps</h2>
+    </div>
+
+    <ol class="steps">
+      {steps.map((step) => (
+        <li data-reveal>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+          {step.whatToSend && (
+            <ul class="steps__chips" aria-label="What to send">
+              {step.whatToSend.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .how {
+    background: var(--color-mist);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    counter-reset: step;
+  }
+
+  .steps > li {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    padding: 28px 26px;
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+    counter-increment: step;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .steps > li:hover {
+    box-shadow: var(--shadow-soft);
+    transform: translateY(-4px);
+  }
+
+  /* Step number badge */
+  .steps > li::before {
+    content: counter(step);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-teal);
+    color: var(--color-on-teal);
+    font: 700 17px/1 var(--font-display);
+  }
+
+  h3 {
+    font-size: 19px;
+  }
+
+  p {
+    color: var(--color-ink-soft);
+    font-size: 15.5px;
+  }
+
+  .steps__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .steps__chips li {
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--color-mist);
+    color: var(--color-teal-deep);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 860px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

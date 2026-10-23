@@ -1,0 +1,52 @@
+---
+import Icon from "./Icon.astro";
+import { whatsappLink } from "../config/site";
+---
+
+<a
+  class="whatsapp-float"
+  href={whatsappLink("general")}
+  target="_blank"
+  rel="noopener"
+  aria-label="Chat with us on WhatsApp"
+>
+  <Icon name="whatsapp" />
+</a>
+
+<style>
+  .whatsapp-float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 70;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--color-whatsapp);
+    color: #fff;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 25%);
+    animation: pulse 2.2s ease-out infinite;
+    transition: transform 0.15s ease;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.06);
+  }
+
+  .whatsapp-float :global(svg) {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Expanding ring that draws attention to the button */
+  @keyframes pulse {
+    from {
+      box-shadow: 0 0 0 0 rgb(37 211 102 / 50%);
+    }
+    to {
+      box-shadow: 0 0 0 18px rgb(37 211 102 / 0%);
+    }
+  }
+</style>

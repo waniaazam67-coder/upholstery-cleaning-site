@@ -1,0 +1,94 @@
+---
+import { Picture } from "astro:assets";
+import type { Service } from "../data/services";
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+---
+
+<article class="service-card">
+  <div class="service-card__photo">
+    <Picture
+      src={service.image}
+      formats={["avif"]}
+      fallbackFormat="webp"
+      alt={service.imageAlt}
+      sizes="(max-width: 760px) 78vw, 420px"
+    />
+  </div>
+  <div class="service-card__body">
+    <h3>{service.title}</h3>
+    <p>{service.description}</p>
+  </div>
+</article>
+
+<style>
+  .service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  /* Teal line that draws across the top on hover */
+  .service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    height: 3px;
+    background: var(--color-teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .service-card:hover {
+    box-shadow: var(--shadow-soft);
+    transform: translateY(-3px);
+  }
+
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .service-card__photo {
+    overflow: hidden;
+  }
+
+  .service-card__photo img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .service-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .service-card__body {
+    display: grid;
+    gap: 6px;
+    padding: 18px 20px 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  p {
+    color: var(--color-ink-soft);
+    font-size: 15px;
+  }
+</style>

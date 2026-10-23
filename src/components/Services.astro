@@ -1,0 +1,215 @@
+---
+import Icon from "./Icon.astro";
+import ServiceCard from "./ServiceCard.astro";
+import WhatsAppButton from "./WhatsAppButton.astro";
+import { services } from "../data/services";
+
+/** Service cards plus the "Custom Cleaning" card at the end. */
+const totalCards = services.length + 1;
+---
+
+<section class="services" id="services" data-services-scroller>
+  <div class="services__pin" data-scroller-pin>
+    <div class="container">
+      <div class="section-head services__head">
+        <span class="eyebrow">Our services</span>
+        <h2>Cleaning services for a fresher home</h2>
+        <p>
+          Thoughtful care for your sofas and soft furnishings. Every service is carried out at your
+          home, with methods chosen for your fabric type.
+        </p>
+        <div class="services__progress" aria-hidden="true">
+          <span class="services__bar">
+            <i data-scroller-progress></i>
+          </span>
+          <span class="services__count">
+            <b data-scroller-count>1</b> / {totalCards}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="services__viewport" data-scroller-viewport>
+      <ul class="services__track" data-scroller-track>
+        {services.map((service) => (
+          <li>
+            <ServiceCard service={service} />
+          </li>
+        ))}
+        <li>
+          <article class="custom-card">
+            <Icon name="sparkle" class="sparkle custom-card__icon" />
+            <div class="custom-card__text">
+              <h3>Custom Cleaning</h3>
+              <p>
+                Something else that needs cleaning? Send us a photo and we'll give you a tailored
+                estimate.
+              </p>
+            </div>
+            <WhatsAppButton message="custom" variant="light">
+              Ask on WhatsApp
+            </WhatsAppButton>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initServicesScroller } from "../scripts/services-scroller";
+
+  const section = document.querySelector<HTMLElement>("[data-services-scroller]");
+  if (section) initServicesScroller(section);
+</script>
+
+<style>
+  .services {
+    --card-width: clamp(270px, 34vw, 420px);
+    /* Lines the first card up with the page content, however wide the screen is */
+    --edge: max(var(--gutter), calc((100vw - var(--page-max)) / 2 + var(--gutter)));
+
+    padding-top: clamp(56px, 8vw, 96px);
+  }
+
+  /*
+   * Without JavaScript the row is simply scrollable sideways.
+   * services-scroller.ts adds .is-scroll-driven, which pins this block on screen
+   * while vertical scrolling moves the cards.
+   */
+  .services__pin {
+    padding-top: 24px;
+  }
+
+  .services.is-scroll-driven .services__pin {
+    position: sticky;
+    top: var(--header-height);
+  }
+
+  .services__head {
+    margin-bottom: 28px;
+  }
+
+  .services__progress {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    color: var(--color-ink-soft);
+    font-size: 14px;
+  }
+
+  .services__bar {
+    flex: 1;
+    max-width: 240px;
+    height: 4px;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--color-line);
+  }
+
+  .services__bar i {
+    display: block;
+    height: 100%;
+    background: var(--color-teal);
+    transform: scaleX(0.3);
+    transform-origin: left;
+  }
+
+  .services__count {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .services__count b {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+  }
+
+  .services__viewport {
+    overflow-x: auto;
+    padding-block: 8px 40px;
+  }
+
+  .services.is-scroll-driven .services__viewport {
+    overflow: hidden;
+  }
+
+  .services__track {
+    display: flex;
+    gap: 22px;
+    width: max-content;
+    padding-inline: var(--edge);
+    will-change: transform;
+  }
+
+  .services__track > li {
+    flex: none;
+    width: var(--card-width);
+  }
+
+  /* ---------- Custom Cleaning card ---------- */
+  .custom-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    height: 100%;
+    padding: 26px 22px;
+    border-radius: var(--radius-card);
+    background: var(--color-teal);
+    color: var(--color-on-teal);
+  }
+
+  .custom-card :global(.custom-card__icon) {
+    width: 44px;
+    height: 44px;
+  }
+
+  .custom-card__text {
+    display: grid;
+    gap: 6px;
+  }
+
+  .custom-card h3 {
+    font-size: 22px;
+  }
+
+  .custom-card p {
+    font-size: 15px;
+    opacity: 0.9;
+  }
+
+  .custom-card :global(.btn) {
+    width: fit-content;
+  }
+
+  @media (max-width: 760px) {
+    .services {
+      --card-width: 78vw;
+      padding-top: 48px;
+    }
+
+    .services__pin {
+      top: 68px;
+      padding-top: 16px;
+    }
+
+    .services__head p {
+      display: none;
+    }
+
+    .services__head h2 {
+      font-size: 26px;
+    }
+
+    .services__viewport {
+      padding-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 760px) and (max-height: 720px) {
+    .services {
+      --card-width: 66vw;
+    }
+  }
+</style>

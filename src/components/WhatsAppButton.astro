@@ -1,0 +1,23 @@
+---
+import Icon from "./Icon.astro";
+import { whatsappLink, type WhatsappMessage } from "../config/site";
+
+/** A button that opens a WhatsApp chat with the business in a new tab. */
+interface Props {
+  message?: WhatsappMessage;
+  variant?: "primary" | "light";
+  class?: string;
+}
+
+const { message = "general", variant = "primary", class: className } = Astro.props;
+---
+
+<a
+  class:list={["btn", `btn--${variant}`, className]}
+  href={whatsappLink(message)}
+  target="_blank"
+  rel="noopener"
+>
+  <Icon name="whatsapp" />
+  <slot />
+</a>

@@ -1,0 +1,144 @@
+---
+import WhatsAppButton from "./WhatsAppButton.astro";
+import { navLinks, site } from "../config/site";
+---
+
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a class="brand" href="#home" aria-label={`${site.name}, back to top`}>
+      <span class="brand__mark">U</span>
+      <span class="brand__name">
+        Upholstery<span>Cleaning</span>
+      </span>
+    </a>
+
+    <nav aria-label="Main">
+      <ul class="nav">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <WhatsAppButton class="header__cta">
+      <span class="header__cta-label">Book now</span>
+    </WhatsAppButton>
+  </div>
+</header>
+
+<script>
+  import { initHeaderShadow } from "../scripts/header-shadow";
+
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  if (header) initHeaderShadow(header);
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--color-line);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    backdrop-filter: blur(10px);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .header.is-scrolled {
+    box-shadow: 0 6px 24px rgb(16 48 74 / 8%);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 14px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .brand__mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--color-teal);
+    color: var(--color-on-teal);
+    font: 800 20px/1 var(--font-display);
+  }
+
+  /* Small four-point sparkle on the logo corner */
+  .brand__mark::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 12px;
+    height: 12px;
+    background: var(--color-sparkle);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    animation: twinkle 3.2s ease-in-out infinite;
+  }
+
+  .brand__name {
+    font: 800 15px/1.05 var(--font-display);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .brand__name span {
+    display: block;
+    color: var(--color-teal);
+  }
+
+  .nav {
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav a {
+    color: var(--color-ink-soft);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .nav a:hover {
+    color: var(--color-teal-deep);
+  }
+
+  .header :global(.header__cta) {
+    padding: 11px 18px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 860px) {
+    nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .header :global(.header__cta) {
+      padding: 11px;
+    }
+
+    .header__cta-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+  }
+</style>

@@ -1,0 +1,284 @@
+---
+import { Picture } from "astro:assets";
+import Icon from "./Icon.astro";
+import WhatsAppButton from "./WhatsAppButton.astro";
+import heroImage from "../assets/images/hero.webp";
+---
+
+<section class="hero" id="home">
+  <div class="hero__bubbles" data-hero-bubbles aria-hidden="true"></div>
+
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <span class="hero__pill">
+        <Icon name="home" />
+        Our team comes to your home, anywhere in Dubai
+      </span>
+      <h1>
+        Professional Sofa &amp; Upholstery Cleaning <em>in Dubai</em>
+      </h1>
+      <p class="hero__lede">
+        Bring your furniture back to life. Deep cleaning for sofas, carpets, mattresses, curtains
+        and upholstered furniture, done right in your home.
+      </p>
+      <div class="hero__actions">
+        <WhatsAppButton message="booking">Book on WhatsApp</WhatsAppButton>
+        <a class="btn btn--ghost" href="#services">
+          See our services
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__frame">
+        <Picture
+          src={heroImage}
+          formats={["avif"]}
+          fallbackFormat="webp"
+          alt="Cleaning technician vacuuming a fabric sofa in a bright Dubai living room"
+          loading="eager"
+          fetchpriority="high"
+          sizes="(max-width: 860px) 100vw, 560px"
+        />
+      </div>
+      <div class="hero__badge">
+        <Icon name="sparkle" class="sparkle hero__badge-icon" />
+        <div>
+          <strong>No pick-up, no waiting</strong>
+          <small>Cleaned on-site with professional equipment</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initHeroBubbles } from "../scripts/hero-bubbles";
+
+  const bubbles = document.querySelector<HTMLElement>("[data-hero-bubbles]");
+  if (bubbles) initHeroBubbles(bubbles);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--color-mist), var(--color-bg));
+  }
+
+  .hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    align-items: center;
+    gap: clamp(32px, 5vw, 64px);
+    padding-block: clamp(40px, 6vw, 80px);
+  }
+
+  /* ---------- Text column ---------- */
+  .hero__copy {
+    display: grid;
+    gap: 22px;
+    min-width: 0;
+  }
+
+  /* Each line fades up one after another on page load */
+  .hero__copy > * {
+    animation: rise 0.8s var(--ease-out) both;
+  }
+  .hero__copy > :nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .hero__copy > :nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .hero__copy > :nth-child(3) {
+    animation-delay: 0.28s;
+  }
+  .hero__copy > :nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .hero__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    padding: 8px 14px;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: var(--color-surface);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .hero__pill :global(svg) {
+    width: 18px;
+    height: 18px;
+    color: var(--color-teal);
+  }
+
+  h1 {
+    font-size: clamp(36px, 5.2vw, 60px);
+    font-weight: 800;
+  }
+
+  h1 em {
+    color: var(--color-teal);
+    font-style: normal;
+  }
+
+  .hero__lede {
+    max-width: 34ch;
+    color: var(--color-ink-soft);
+    font-size: 19px;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ---------- Photo column ---------- */
+  .hero__media {
+    position: relative;
+    min-width: 0;
+  }
+
+  /* The photo is uncovered left to right, like a cleaning pass across fabric */
+  .hero__frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-soft);
+    animation: wipe 1.2s cubic-bezier(0.7, 0, 0.2, 1) 0.25s both;
+  }
+
+  /* ...then a soft shine sweeps across it */
+  .hero__frame::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: -30%;
+    width: 28%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 55%), transparent);
+    animation: stripe 1.3s ease-out 1.25s both;
+    pointer-events: none;
+  }
+
+  .hero__frame img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: 20% 50%;
+    transition: transform 6s ease;
+  }
+
+  .hero__media:hover img {
+    transform: scale(1.04);
+  }
+
+  .hero__badge {
+    position: absolute;
+    bottom: -26px;
+    left: -18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 260px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+    animation:
+      rise 0.7s ease 1.1s both,
+      float 5s ease-in-out 2s infinite;
+  }
+
+  .hero__badge strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 15px;
+  }
+
+  .hero__badge small {
+    color: var(--color-ink-soft);
+    font-size: 13px;
+  }
+
+  .hero__badge :global(.hero__badge-icon) {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* ---------- Foam bubbles (created by hero-bubbles.ts) ---------- */
+  .hero__bubbles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero__bubbles :global(span) {
+    position: absolute;
+    bottom: -40px;
+    border: 1.5px solid color-mix(in srgb, var(--color-teal) 35%, transparent);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      color-mix(in srgb, var(--color-surface) 90%, transparent),
+      color-mix(in srgb, var(--color-teal) 8%, transparent)
+    );
+    animation: bubble linear infinite;
+  }
+
+  @keyframes wipe {
+    from {
+      clip-path: inset(0 100% 0 0 round var(--radius-large));
+    }
+    to {
+      clip-path: inset(0 0 0 0 round var(--radius-large));
+    }
+  }
+
+  @keyframes stripe {
+    0% {
+      left: -30%;
+      opacity: 0;
+    }
+    15% {
+      opacity: 0.9;
+    }
+    100% {
+      left: 110%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes bubble {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.6);
+    }
+    15% {
+      opacity: 0.55;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-420px) scale(1);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      padding-bottom: 64px;
+    }
+
+    .hero__badge {
+      left: 12px;
+    }
+  }
+</style>

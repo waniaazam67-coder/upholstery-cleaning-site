@@ -1,0 +1,158 @@
+---
+import { Picture } from "astro:assets";
+import Icon, { type IconName } from "./Icon.astro";
+import teamImage from "../assets/images/team.webp";
+
+const reasons: { icon: IconName; title: string; text: string }[] = [
+  { icon: "chat", title: "Convenient booking", text: "Book with one WhatsApp message." },
+  {
+    icon: "equipment",
+    title: "Professional equipment",
+    text: "Vacuums and extraction machines brought to your door.",
+  },
+  {
+    icon: "leaf",
+    title: "Careful fabric treatment",
+    text: "Methods selected for your fabric type.",
+  },
+  {
+    icon: "pin",
+    title: "Service across Dubai",
+    text: "We visit homes and apartments all over the city.",
+  },
+];
+---
+
+<section class="section" id="about">
+  <div class="container about">
+    <div class="about__photo" data-reveal>
+      <Picture
+        src={teamImage}
+        formats={["avif"]}
+        fallbackFormat="webp"
+        alt="Two cleaning technicians with professional equipment at an apartment door"
+        sizes="(max-width: 860px) 100vw, 545px"
+      />
+    </div>
+
+    <div>
+      <span class="eyebrow" data-reveal>
+        About us
+      </span>
+      <h2 data-reveal>
+        Fresh furniture. <span>Cleaner living.</span>
+      </h2>
+      <p class="about__intro" data-reveal>
+        Your local sofa and upholstery cleaning team in Dubai.
+      </p>
+
+      <ul class="reasons">
+        {reasons.map((reason) => (
+          <li data-reveal>
+            <span class="reasons__icon">
+              <Icon name={reason.icon} />
+            </span>
+            <div>
+              <strong>{reason.title}</strong>
+              <span class="reasons__text">{reason.text}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+  }
+
+  .about__photo {
+    overflow: hidden;
+    border-radius: 24px;
+  }
+
+  .about__photo img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+
+  .about__photo:hover img {
+    transform: scale(1.015);
+  }
+
+  h2 {
+    margin-top: 12px;
+    font-size: clamp(28px, 3.6vw, 40px);
+  }
+
+  h2 span {
+    color: var(--color-teal);
+  }
+
+  .about__intro {
+    margin-top: 14px;
+    color: var(--color-ink-soft);
+  }
+
+  .reasons {
+    display: grid;
+    gap: 18px;
+    margin-top: 28px;
+  }
+
+  .reasons li {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: start;
+    gap: 14px;
+  }
+
+  .reasons__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--color-mist);
+    color: var(--color-teal);
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .reasons li:hover .reasons__icon {
+    background: var(--color-teal);
+    color: var(--color-on-teal);
+    transform: rotate(-8deg) scale(1.08);
+  }
+
+  .reasons__icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  .reasons strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 17px;
+  }
+
+  .reasons__text {
+    color: var(--color-ink-soft);
+    font-size: 15.5px;
+  }
+
+  @media (max-width: 860px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

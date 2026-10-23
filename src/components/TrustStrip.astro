@@ -1,0 +1,67 @@
+---
+import Icon, { type IconName } from "./Icon.astro";
+
+const points: { icon: IconName; label: string }[] = [
+  { icon: "home", label: "At-home service" },
+  { icon: "equipment", label: "Professional equipment" },
+  { icon: "leaf", label: "Careful fabric treatment" },
+  { icon: "pin", label: "Service across Dubai" },
+];
+---
+
+<section class="trust" aria-label="Why customers book us">
+  <ul class="container trust__list">
+    {points.map((point) => (
+      <li data-reveal>
+        <Icon name={point.icon} />
+        {point.label}
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .trust {
+    border-block: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+
+  .trust__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 18px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  li + li {
+    border-left: 1px solid var(--color-line);
+  }
+
+  li :global(svg) {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    color: var(--color-teal);
+  }
+
+  @media (max-width: 860px) {
+    .trust__list {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    li:nth-child(3) {
+      border-left: 0;
+    }
+
+    li:nth-child(n + 3) {
+      border-top: 1px solid var(--color-line);
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+import Icon from "./Icon.astro";
+import WhatsAppButton from "./WhatsAppButton.astro";
+---
+
+<section class="section booking" aria-labelledby="booking-title">
+  <div class="container">
+    <div class="booking__band" data-reveal>
+      <Icon name="sparkle" class="sparkle booking__sparkle booking__sparkle--top" />
+      <Icon name="sparkle" class="sparkle booking__sparkle booking__sparkle--bottom" />
+
+      <div>
+        <h2 id="booking-title">Book your cleaning</h2>
+        <p>
+          WhatsApp us your location, the furniture type and a photo. We'll understand the job and
+          send you an estimate.
+        </p>
+      </div>
+
+      <WhatsAppButton message="booking" variant="light" class="booking__cta">
+        WhatsApp booking
+      </WhatsAppButton>
+    </div>
+  </div>
+</section>
+
+<style>
+  .booking {
+    padding-top: 0;
+  }
+
+  .booking__band {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: 28px;
+    overflow: hidden;
+    padding: clamp(32px, 5vw, 56px);
+    border-radius: var(--radius-large);
+    background: var(--color-teal);
+    color: var(--color-on-teal);
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.6vw, 42px);
+  }
+
+  p {
+    max-width: 46ch;
+    margin-top: 12px;
+    opacity: 0.92;
+  }
+
+  .booking__band :global(.booking__cta) {
+    justify-self: end;
+    padding: 16px 26px;
+    font-size: 17px;
+  }
+
+  .booking__band :global(.booking__sparkle) {
+    position: absolute;
+    opacity: 0.9;
+  }
+
+  .booking__band :global(.booking__sparkle--top) {
+    top: 18px;
+    right: 30%;
+    width: 26px;
+    height: 26px;
+  }
+
+  .booking__band :global(.booking__sparkle--bottom) {
+    right: 8%;
+    bottom: 22px;
+    width: 18px;
+    height: 18px;
+    animation-delay: 1.2s;
+  }
+
+  @media (max-width: 760px) {
+    .booking__band {
+      grid-template-columns: 1fr;
+    }
+
+    .booking__band :global(.booking__cta) {
+      justify-self: start;
+    }
+  }
+</style>

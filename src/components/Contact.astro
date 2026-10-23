@@ -1,0 +1,98 @@
+---
+import { site, whatsappLink } from "../config/site";
+---
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Contact</span>
+      <h2>Contact details</h2>
+    </div>
+
+    <div class="contact__grid">
+      <div class="contact__card" data-reveal>
+        <span class="contact__label">WhatsApp / Call</span>
+        <a
+          class="contact__value contact__value--link"
+          href={whatsappLink()}
+          target="_blank"
+          rel="noopener"
+        >
+          {site.phone.local}
+        </a>
+        <small>{site.phone.international}</small>
+      </div>
+
+      <div class="contact__card" data-reveal>
+        <span class="contact__label">Working hours</span>
+        <span class="contact__value">{site.hours.display}</span>
+        <small>{site.hours.note}</small>
+      </div>
+
+      <div class="contact__card" data-reveal>
+        <span class="contact__label">Service area</span>
+        <span class="contact__value">{site.city}, UAE</span>
+        <small>At-home service across the city</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-top: 0;
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .contact__card {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    padding: 24px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .contact__card:hover {
+    border-color: var(--color-teal);
+    transform: translateY(-3px);
+  }
+
+  .contact__label {
+    color: var(--color-ink-soft);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .contact__value {
+    font: 700 20px/1.3 var(--font-display);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .contact__value--link {
+    color: var(--color-teal-deep);
+    text-decoration: none;
+  }
+
+  small {
+    color: var(--color-ink-soft);
+    font-size: 14px;
+  }
+
+  @media (max-width: 860px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

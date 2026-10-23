@@ -1,0 +1,31 @@
+---
+import { site } from "../config/site";
+
+// Set at build time; the site is rebuilt on every deploy.
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span>
+      © {year} {site.name}, {site.city}
+    </span>
+    <span>Sofa · Upholstery · Carpet · Mattress · Curtain cleaning</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: 28px;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-ink-soft);
+    font-size: 14px;
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+</style>
