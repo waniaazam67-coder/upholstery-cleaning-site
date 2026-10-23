@@ -1,0 +1,65 @@
+---
+import { getImage } from "astro:assets";
+import "../styles/global.css";
+import { site } from "../config/site";
+import heroImage from "../assets/images/hero.webp";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+// Social preview image (WhatsApp, Facebook, etc.). Must be an absolute URL.
+const socialImage = await getImage({ src: heroImage, format: "jpg", width: 1200 });
+const socialImageUrl = new URL(socialImage.src, Astro.site);
+
+// Structured data so search engines understand the business (Google local results).
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  name: site.name,
+  description: site.tagline,
+  url: Astro.site?.href,
+  image: socialImageUrl.href,
+  telephone: site.phone.e164,
+  openingHours: site.hours.schema,
+  areaServed: { "@type": "City", name: site.city },
+  address: { "@type": "PostalAddress", addressLocality: site.city, addressCountry: site.country },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0e9f9a" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      import { initScrollReveal } from "../scripts/scroll-reveal";
+
+      initScrollReveal();
+    </script>
+  </body>
+</html>
