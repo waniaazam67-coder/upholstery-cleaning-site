@@ -1,0 +1,51 @@
+/*
+ * Design tokens. Every color, font and size the site uses comes from here.
+ * Light theme is the default; dark values follow the visitor's system setting.
+ */
+:root {
+  /* Colors */
+  --color-bg: #fbfdfd;
+  --color-surface: #ffffff;
+  --color-mist: #e7f5f4; /* soft aqua section background */
+  --color-ink: #10304a; /* headings and main text */
+  --color-ink-soft: #4a6375; /* secondary text */
+  --color-line: #d6e7e8; /* borders and dividers */
+  --color-teal: #0e9f9a; /* brand color */
+  --color-teal-deep: #0a7f7b; /* hover states, text on light backgrounds */
+  --color-on-teal: #ffffff; /* text on teal */
+  --color-sparkle: #f2b63c; /* small yellow sparkle accents */
+  --color-whatsapp: #25d366;
+
+  --shadow-soft: 0 10px 30px rgb(16 48 74 / 8%);
+
+  /* Typography */
+  --font-display: "Sora Variable", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree Variable", "Segoe UI", system-ui, sans-serif;
+
+  /* Layout */
+  --page-max: 1160px;
+  --gutter: 20px;
+  --header-height: 72px;
+  --radius-card: 18px;
+  --radius-large: 28px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-bg: #0b1a24;
+    --color-surface: #11242f;
+    --color-mist: #10303a;
+    --color-ink: #e8f3f4;
+    --color-ink-soft: #a7bec6;
+    --color-line: #1f3a47;
+    --color-teal: #2bc0b9;
+    --color-teal-deep: #5ed3cd;
+    --color-on-teal: #062227;
+    --color-sparkle: #f5c25a;
+    --shadow-soft: 0 10px 30px rgb(0 0 0 / 35%);
+  }
+}

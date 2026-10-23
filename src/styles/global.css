@@ -1,0 +1,189 @@
+/*
+ * Base styles and small shared building blocks (layout wrapper, section headings, buttons).
+ * Section-specific styles live inside each component.
+ */
+@import "@fontsource-variable/sora";
+@import "@fontsource-variable/figtree";
+@import "./tokens.css";
+@import "./animations.css";
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 12px);
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font: 400 17px/1.6 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-sparkle);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Layout helpers ---------- */
+.container {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(56px, 8vw, 96px);
+}
+
+.section-head {
+  display: grid;
+  gap: 12px;
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.section-head h2 {
+  font-size: clamp(28px, 3.6vw, 40px);
+}
+
+.section-head p {
+  color: var(--color-ink-soft);
+}
+
+.eyebrow {
+  color: var(--color-teal-deep);
+  font: 600 13px/1 var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 999px;
+  font: 600 16px/1 var(--font-body);
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btn svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+/* Light sweep across the button on hover */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 35%), transparent);
+  transform: translateX(-120%) skewX(-20deg);
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  animation: shine 0.7s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  background: var(--color-teal);
+  color: var(--color-on-teal);
+}
+
+.btn--primary:hover {
+  background: var(--color-teal-deep);
+}
+
+.btn--ghost {
+  border: 1.5px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.btn--ghost:hover {
+  border-color: var(--color-teal);
+}
+
+/* White button used on teal backgrounds */
+.btn--light {
+  background: var(--color-on-teal);
+  color: var(--color-teal-deep);
+}
+
+/* ---------- Shared accents ---------- */
+.sparkle {
+  flex: none;
+  color: var(--color-sparkle);
+  animation: twinkle 3.2s ease-in-out infinite;
+}

@@ -1,0 +1,82 @@
+/*
+ * Shared keyframes and the scroll-reveal states.
+ * All motion switches off when the visitor asks for reduced motion.
+ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.7) rotate(45deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shine {
+  from {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  to {
+    transform: translateX(220%) skewX(-20deg);
+  }
+}
+
+/*
+ * Scroll reveal (driven by src/scripts/scroll-reveal.ts).
+ * Only elements that start below the fold get .reveal-pending, so the first screen
+ * is never hidden, and nothing is hidden at all without JavaScript.
+ */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.reveal-done {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+}
