@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://upholstery-cleaning-dubai.vercel.app/sitemap-index.xml
